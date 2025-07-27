@@ -8,7 +8,7 @@
 > **🏆 Goal: Advance to In-Person Finale (August 1-3, 2024)**
 
 ## 👥 Contributors
-- **Fahami Jemal** - Full Stack Developer & Project Lead
+- **Fahami Jemal** - Full Stack Developer
 
 ## 📖 Project Synopsis
 
