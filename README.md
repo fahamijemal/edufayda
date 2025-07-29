@@ -179,7 +179,7 @@ Create a `.env.local` file in your project root with the following configuration
 
 ```env
 # VeriFayda OIDC Configuration - IDA.fayda.et Staging
-VERIFAYDA_CLIENT_ID=crXYIYg2cJiNTaw5t-peoPzCRo-3JATNfBd5A86U8t0
+VERIFAYDA_CLIENT_ID=your_client_id_here
 VERIFAYDA_REDIRECT_URI=http://localhost:3000/callback
 VERIFAYDA_AUTHORIZATION_ENDPOINT=https://esignet.ida.fayda.et/authorize
 VERIFAYDA_TOKEN_ENDPOINT=https://esignet.ida.fayda.et/v1/esignet/oauth/v2/token
@@ -187,7 +187,7 @@ VERIFAYDA_USERINFO_ENDPOINT=https://esignet.ida.fayda.et/v1/esignet/oidc/userinf
 VERIFAYDA_CLIENT_ASSERTION_TYPE=urn:ietf:params:oauth:client-assertion-type:jwt-bearer
 
 # Client-side environment variables (NEXT_PUBLIC_ prefix)
-NEXT_PUBLIC_VERIFAYDA_CLIENT_ID=crXYIYg2cJiNTaw5t-peoPzCRo-3JATNfBd5A86U8t0
+NEXT_PUBLIC_VERIFAYDA_CLIENT_ID=your_client_id_here
 NEXT_PUBLIC_VERIFAYDA_REDIRECT_URI=http://localhost:3000/callback
 NEXT_PUBLIC_VERIFAYDA_AUTHORIZATION_ENDPOINT=https://esignet.ida.fayda.et/authorize
 
@@ -202,6 +202,7 @@ BETTER_AUTH_URL=http://localhost:3000
 RESEND_API_KEY=your_resend_api_key_here
 ARCJET_KEY=your_arcjet_key_here
 VERIFAYDA_PRIVATE_KEY_BASE64=your_private_key_base64_here
+
 ```
 
 **Note**: The staging environment uses the IDA.fayda.et endpoints for testing. Use the test FIN `6140798523917519` and OTP `111111` for authentication testing.
