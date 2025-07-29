@@ -1,6 +1,3 @@
-# edufayda
-🎓 Verified Learning Management System with VeriFayda OIDC Integration - Fayda Hackathon 2024 Project
-
 # 🎓 EduFayda - Verified Learning Management System
 
 > **🚀 Fayda Hackathon 2024 - Phase 1 Virtual**  
@@ -8,7 +5,7 @@
 > **🏆 Goal: Advance to In-Person Finale (August 1-3, 2024)**
 
 ## 👥 Contributors
-- **Fahami Jemal** - Full Stack Developer
+- **Fahami Jemal** - Full Stack Developer & Project Lead
 
 ## 📖 Project Synopsis
 
@@ -174,7 +171,40 @@ Educational institutions in Ethiopia face significant challenges with student id
 - **Test FIN**: `6140798523917519`
 - **Test OTP**: `111111`
 - **Demo URL**: Will be available at `https://edufayda.vercel.app`
-- **Local Development**: `http://localhost:3001`
+- **Local Development**: `http://localhost:3000`
+
+### **Environment Configuration**
+
+Create a `.env.local` file in your project root with the following configuration:
+
+```env
+# VeriFayda OIDC Configuration - IDA.fayda.et Staging
+VERIFAYDA_CLIENT_ID=crXYIYg2cJiNTaw5t-peoPzCRo-3JATNfBd5A86U8t0
+VERIFAYDA_REDIRECT_URI=http://localhost:3000/callback
+VERIFAYDA_AUTHORIZATION_ENDPOINT=https://esignet.ida.fayda.et/authorize
+VERIFAYDA_TOKEN_ENDPOINT=https://esignet.ida.fayda.et/v1/esignet/oauth/v2/token
+VERIFAYDA_USERINFO_ENDPOINT=https://esignet.ida.fayda.et/v1/esignet/oidc/userinfo
+VERIFAYDA_CLIENT_ASSERTION_TYPE=urn:ietf:params:oauth:client-assertion-type:jwt-bearer
+
+# Client-side environment variables (NEXT_PUBLIC_ prefix)
+NEXT_PUBLIC_VERIFAYDA_CLIENT_ID=crXYIYg2cJiNTaw5t-peoPzCRo-3JATNfBd5A86U8t0
+NEXT_PUBLIC_VERIFAYDA_REDIRECT_URI=http://localhost:3000/callback
+NEXT_PUBLIC_VERIFAYDA_AUTHORIZATION_ENDPOINT=https://esignet.ida.fayda.et/authorize
+
+# JWT Configuration
+EXPIRATION_TIME=15
+ALGORITHM=RS256
+
+# Other required variables (add your actual values)
+DATABASE_URL=your_database_url_here
+BETTER_AUTH_SECRET=your_secret_here
+BETTER_AUTH_URL=http://localhost:3000
+RESEND_API_KEY=your_resend_api_key_here
+ARCJET_KEY=your_arcjet_key_here
+VERIFAYDA_PRIVATE_KEY_BASE64=your_private_key_base64_here
+```
+
+**Note**: The staging environment uses the IDA.fayda.et endpoints for testing. Use the test FIN `6140798523917519` and OTP `111111` for authentication testing.
 
 ### **Planned Demo Features**
 1. **Instant VeriFayda Login**: Seamless national ID authentication
