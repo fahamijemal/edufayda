@@ -255,3 +255,136 @@ By July 31st, EduFayda will demonstrate how VeriFayda can transform education in
 **🚀 Building the Future of Verified Education - Fayda Hackathon 2024**  
 **🎯 Target: Advance to In-Person Finale at AFLEX Campus**  
 **⏰ Follow our progress: [GitHub Repository](https://github.com/fahamijemal/edufayda)** 
+
+## 🚀 Installation and Deployment
+
+### Prerequisites
+- **Node.js 20+** and **pnpm** package manager
+- **PostgreSQL** database (local or cloud-hosted)
+- **VeriFayda staging credentials** (provided by hackathon organizers)
+
+### Installing Dependencies
+```bash
+# Clone the repository
+git clone https://github.com/fahamijemal/edufayda.git
+cd edufayda
+
+# Install all project dependencies
+pnpm install
+
+# Generate Prisma client for database operations
+pnpm dlx prisma generate
+```
+
+### Running the App Locally
+
+#### 1. Environment Setup
+Create a `.env` file in your project root with the required configuration:
+
+```env
+# Database Connection
+DATABASE_URL="your-postgresql-database-url"
+
+# Authentication Configuration
+BETTER_AUTH_SECRET=your-secret-key-here
+BETTER_AUTH_URL=http://localhost:3000
+
+# VeriFayda OIDC Integration
+VERIFAYDA_CLIENT_ID=crXYIYg2cJiNTaw5t-peoPzCRo-3JATNfBd5A86U8t0
+VERIFAYDA_REDIRECT_URI=http://localhost:3000/callback
+VERIFAYDA_AUTHORIZATION_ENDPOINT=https://esignet.ida.fayda.et/authorize
+VERIFAYDA_TOKEN_ENDPOINT=https://esignet.ida.fayda.et/v1/esignet/oauth/v2/token
+VERIFAYDA_USERINFO_ENDPOINT=https://esignet.ida.fayda.et/v1/esignet/oidc/userinfo
+VERIFAYDA_CLIENT_ASSERTION_TYPE=urn:ietf:params:oauth:client-assertion-type:jwt-bearer
+VERIFAYDA_PRIVATE_KEY_BASE64=your-private-key-base64
+
+# Client-side Environment Variables
+NEXT_PUBLIC_VERIFAYDA_CLIENT_ID=crXYIYg2cJiNTaw5t-peoPzCRo-3JATNfBd5A86U8t0
+NEXT_PUBLIC_VERIFAYDA_REDIRECT_URI=http://localhost:3000/callback
+NEXT_PUBLIC_VERIFAYDA_AUTHORIZATION_ENDPOINT=https://esignet.ida.fayda.et/authorize
+
+# Additional Services
+RESEND_API_KEY=your-resend-api-key
+ARCJET_KEY=your-arcjet-key
+
+# JWT Configuration
+EXPIRATION_TIME=15
+ALGORITHM=RS256
+```
+
+#### 2. Database Setup
+```bash
+# Apply database schema to your PostgreSQL database
+pnpm dlx prisma db push
+
+# (Optional) Seed the database with initial data
+pnpm dlx prisma db seed
+```
+
+#### 3. Start Development Server
+```bash
+# Start the development server with Turbopack
+pnpm dev
+
+# The application will be available at http://localhost:3000
+```
+
+### Deploying the App Using Docker
+
+#### Docker Deployment Setup
+The application includes both `Dockerfile` and `docker-compose.yml` for containerized deployment.
+
+#### Using Docker Compose (Recommended)
+```bash
+# Build and start all services
+docker-compose up --build
+
+# Run in detached mode (background)
+docker-compose up -d --build
+
+# Stop all services
+docker-compose down
+```
+
+#### Using Docker Only
+```bash
+# Build the Docker image
+docker build -t edufayda .
+
+# Run the container with environment variables
+docker run -p 3000:3000 --env-file .env edufayda
+```
+
+#### Docker Configuration Details
+- **Dockerfile**: Multi-stage build optimized for production
+- **docker-compose.yml**: Includes app service with environment variable support
+- **Port**: Application runs on port 3000
+- **Environment**: All necessary environment variables are passed through
+
+### Testing VeriFayda Authentication
+
+#### Staging Environment Testing
+1. Navigate to `http://localhost:3000/login`
+2. Click "Sign in with VeriFayda"
+3. Use the provided test credentials:
+   - **Test FIN**: `6140798523917519`
+   - **Test OTP**: `111111`
+4. Complete the OIDC authentication flow
+5. Verify successful authentication and user data retrieval
+
+#### Alternative Authentication
+- Email OTP authentication is available as a fallback method
+- Users can register and authenticate using email verification
+
+### Production Deployment Notes
+
+#### Environment Variables for Production
+- Update `BETTER_AUTH_URL` to your production domain
+- Change `VERIFAYDA_REDIRECT_URI` to your production callback URL
+- Use secure, randomly generated secrets for all key values
+- Ensure database URL points to your production database
+
+#### Recommended Hosting Platforms
+- **Vercel**: Optimized for Next.js applications with automatic deployments
+- **Railway**: Full-stack deployment with integrated database hosting
+- **DigitalOcean App Platform**: Docker-native deployment with scaling capabilities 

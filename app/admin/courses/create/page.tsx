@@ -176,12 +176,13 @@ export default function CourseCreatePage() {
                   <FormItem>
                     <FormLabel>Full Description</FormLabel>
                     <FormControl>
-                      <Textarea
+                      {/* <Textarea
                         placeholder="Explain the course..."
                         {...field}
                         className="min-h-[120px]"
                         disabled={isLoading}
-                      />
+                      /> */}
+                      <RichTextEditor />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
