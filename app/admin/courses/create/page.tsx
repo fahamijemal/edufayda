@@ -15,7 +15,7 @@ import {
   courseSchemaType,
   CourseStatus,
 } from "@/lib/zodSchemas";
-import { ArrowLeft, PlusIcon, SparkleIcon } from "lucide-react";
+import { ArrowLeft, Loader2, PlusIcon, SparkleIcon } from "lucide-react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -176,12 +176,6 @@ export default function CourseCreatePage() {
                   <FormItem>
                     <FormLabel>Full Description</FormLabel>
                     <FormControl>
-                      {/* <Textarea
-                        placeholder="Explain the course..."
-                        {...field}
-                        className="min-h-[120px]"
-                        disabled={isLoading}
-                      /> */}
                       <RichTextEditor />
                     </FormControl>
                     <FormMessage />
@@ -334,15 +328,38 @@ export default function CourseCreatePage() {
             </CardContent>
           </Card>
 
-          <Button
-            type="submit"
-            className={buttonVariants()}
-            onClick={form.handleSubmit(onSubmit)}
-            disabled={isLoading}
-          >
-            {isLoading ? "Creating..." : "Create Course"} 
-            <PlusIcon className="ml-1" size={16} />
-          </Button>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Button type="submit" disabled={isLoading} className="w-full">
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Creating Course...
+                </>
+              ) : (
+                "Create as Draft"
+              )}
+            </Button>
+            
+            <Button 
+              type="button"
+              onClick={() => {
+                form.setValue("status", "PUBLISHED");
+                form.handleSubmit(onSubmit)();
+              }}
+              disabled={isLoading}
+              className="w-full"
+              variant="default"
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Publishing Course...
+                </>
+              ) : (
+                "Create & Publish"
+              )}
+            </Button>
+          </div>
         </form>
       </Form>
     </>

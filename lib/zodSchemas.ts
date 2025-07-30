@@ -100,9 +100,7 @@ export const lessonSchema = z.object({
     .int({ message: "Order must be a whole number." })
     .min(0, { message: "Order must be a non-negative integer." }),
 
-  isPublished: z
-    .boolean()
-    .default(false),
+  isPublished: z.boolean(), // ✅ Fixed: Removed .default() to make it explicit
 });
 
 export type lessonSchemaType = z.infer<typeof lessonSchema>;

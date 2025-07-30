@@ -204,6 +204,20 @@ ARCJET_KEY=your_arcjet_key_here
 VERIFAYDA_PRIVATE_KEY_BASE64=your_private_key_base64_here
 
 ```
+use this for simplicity 
+//better auth 
+BETTER_AUTH_SECRET=m0wmosCoslxI1Z0RaCGgSUbqpLyO8OCv
+BETTER_AUTH_URL=http://localhost:3000 #Base URL of your app
+
+//neon db
+DATABASE_URL="postgresql://neondb_owner:npg_b2SAMKLBOzi0@ep-still-sunset-a2u2lqo5-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+
+
+//Resend
+RESEND_API_KEY=re_Tq1UiAVC_85uPHkMx51HsPvJifjcphUzP
+
+//arcject
+ARCJET_KEY=ajkey_01k0vbwxqjfxrrh77ye6vyqcw5
 
 **Note**: The staging environment uses the IDA.fayda.et endpoints for testing. Use the test FIN `6140798523917519` and OTP `111111` for authentication testing.
 

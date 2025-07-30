@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Edit, Trash2, Copy, Eye, FileText } from "lucide-react";
+import { ArrowLeft, Edit, Trash2, Copy, Eye, FileText, EyeOff, Archive, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -21,6 +21,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
+
 interface Course {
   id: string;
   title: string;
@@ -36,6 +37,101 @@ interface Course {
   createdAt: string;
   updatedAt: string;
 }
+
+const CourseStatusActions = ({ course, onStatusChange }: { 
+  course: Course, 
+  onStatusChange: () => void 
+}) => {
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  const updateStatus = async (newStatus: string) => {
+    setIsUpdating(true);
+    try {
+      const response = await fetch(`/api/courses/${course.id}/status`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus })
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        toast.success(result.message);
+        onStatusChange(); // Refresh course data
+      } else {
+        const error = await response.json();
+        toast.error(error.error || "Failed to update status");
+      }
+    } catch (error) {
+      toast.error("Failed to update course status");
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  return (
+    <div className="flex gap-2">
+      {course.status === "DRAFT" && (
+        <Button
+          onClick={() => updateStatus("PUBLISHED")}
+          disabled={isUpdating}
+          className="bg-green-600 hover:bg-green-700"
+        >
+          {isUpdating ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Publishing...
+            </>
+          ) : (
+            <>
+              <Eye className="mr-2 h-4 w-4" />
+              Publish Course
+            </>
+          )}
+        </Button>
+      )}
+      
+      {course.status === "PUBLISHED" && (
+        <Button
+          onClick={() => updateStatus("DRAFT")}
+          disabled={isUpdating}
+          variant="outline"
+        >
+          {isUpdating ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Unpublishing...
+            </>
+          ) : (
+            <>
+              <EyeOff className="mr-2 h-4 w-4" />
+              Unpublish
+            </>
+          )}
+        </Button>
+      )}
+      
+      {course.status === "PUBLISHED" && (
+        <Button
+          onClick={() => updateStatus("ARCHIVED")}
+          disabled={isUpdating}
+          variant="secondary"
+        >
+          {isUpdating ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Archiving...
+            </>
+          ) : (
+            <>
+              <Archive className="mr-2 h-4 w-4" />
+              Archive
+            </>
+          )}
+        </Button>
+      )}
+    </div>
+  );
+};
 
 export default function CourseDetailsPage() {
   const params = useParams();
@@ -186,6 +282,12 @@ export default function CourseDetailsPage() {
           <Badge className={getStatusColor(course.status)}>
             {course.status}
           </Badge>
+          
+          <CourseStatusActions 
+            course={course} 
+            onStatusChange={() => fetchCourseBySlug(params.slug as string)} 
+          />
+          
           <Link
             href={`/admin/courses/${course.slug}/content`}
             className={buttonVariants({ variant: "outline", size: "sm" })}

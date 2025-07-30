@@ -15,16 +15,19 @@ datasource db {
 }
 
 model User {
-  id            String    @id
-  name          String
-  email         String
-  emailVerified Boolean
-  image         String?
-  createdAt     DateTime
-  updatedAt     DateTime
-  sessions      Session[]
-  accounts      Account[]
-  courses       Course[]
+  id             String           @id
+  name           String
+  email          String
+  emailVerified  Boolean
+  image          String?
+  createdAt      DateTime
+  updatedAt      DateTime
+  sessions       Session[]
+  accounts       Account[]
+  courses        Course[] // Courses they created (instructors)
+  enrollments    Enrollment[] // Courses they're enrolled in (students)
+  lessonProgress LessonProgress[]
+  certificates   Certificate[]
 
   @@unique([email])
   @@map("user")
@@ -90,11 +93,13 @@ model Course {
 
   status CourseStatus @default(DRAFT)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
-  modules   Module[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  user         User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String
+  modules      Module[]
+  enrollments  Enrollment[] // Students enrolled in this course
+  certificates Certificate[]
 }
 
 model Module {
@@ -126,9 +131,61 @@ model Lesson {
   updatedAt DateTime @updatedAt
 
   moduleId String
-  module   Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  module   Module           @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  progress LessonProgress[] // Student progress on this lesson
 
   @@index([moduleId, order])
+}
+
+// NEW MODELS FOR ENROLLMENT AND PROGRESS TRACKING
+
+model Enrollment {
+  id          String    @id @default(uuid())
+  userId      String
+  courseId    String
+  enrolledAt  DateTime  @default(now())
+  completedAt DateTime?
+  progress    Float     @default(0) // 0-100 percentage
+  isActive    Boolean   @default(true)
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId]) // Prevent duplicate enrollments
+  @@index([userId])
+  @@index([courseId])
+}
+
+model LessonProgress {
+  id          String    @id @default(uuid())
+  userId      String
+  lessonId    String
+  isCompleted Boolean   @default(false)
+  timeSpent   Int       @default(0) // Time spent in minutes
+  completedAt DateTime?
+  startedAt   DateTime  @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, lessonId]) // One progress record per user per lesson
+  @@index([userId])
+  @@index([lessonId])
+}
+
+model Certificate {
+  id             String   @id @default(uuid())
+  userId         String
+  courseId       String
+  issuedAt       DateTime @default(now())
+  certificateUrl String? // Link to generated certificate
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId]) // One certificate per user per course
+  @@index([userId])
+  @@index([courseId])
 }
 
 enum CourseLevel {
