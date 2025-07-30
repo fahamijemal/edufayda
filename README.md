@@ -5,8 +5,8 @@
 > **🏆 Goal: Advance to In-Person Finale (August 1-3, 2024)**
 
 ## 👥 Contributors
-- **Fahami Jemal** - Full Stack Developer
-
+- **Fahami Jemal Harun** - Full Stack Developer
+- **fahamijemal1@gmail.com** - 
 ## 📖 Project Synopsis
 
 ### 🎯 Problem Statement
@@ -118,52 +118,6 @@ Educational institutions in Ethiopia face significant challenges with student id
 - **Vercel/Railway** - Modern deployment platforms
 - **Resend** - Reliable transactional email service
 
-## 🚧 Development Timeline - Phase 1 Virtual
-
-### **📅 6-Day Sprint Plan (July 26-31, 2024)**
-
-#### **Day 1 (Saturday, July 26) - Foundation & Setup**
-- [x] Project setup and repository creation
-- [x] Mandatory deliverables completion (Owlevents, Telegram, Registration)
-- [ ] VeriFayda OIDC integration implementation
-- [ ] Database schema design and setup
-
-#### **Day 2 (Sunday, July 27) - VeriFayda Integration**
-- [ ] Complete VeriFayda login flow with PKCE and client assertion
-- [ ] User registration and profile management
-- [ ] Modern UI components with shadcn/ui
-- [ ] Responsive layout and navigation
-
-#### **Day 3 (Monday, July 28) - Core LMS Features**
-- [ ] Course creation and management system
-- [ ] Student enrollment with VeriFayda verification
-- [ ] Basic course content upload and display
-- [ ] User dashboard and course listing
-
-#### **Day 4 (Tuesday, July 29) - Advanced Features**
-- [ ] Progress tracking and analytics
-- [ ] Admin dashboard for course management
-- [ ] Mobile optimization and responsive design
-- [ ] Error handling and user feedback
-
-#### **Day 5 (Wednesday, July 30) - Testing & Polish**
-- [ ] Comprehensive testing with VeriFayda staging
-- [ ] Performance optimization
-- [ ] Production deployment setup
-- [ ] Demo preparation and documentation
-
-#### **Day 6 (Thursday, July 31) - Final Submission**
-- [ ] Final bug fixes and UI polish
-- [ ] Demo video creation
-- [ ] Presentation materials preparation
-- [ ] Final deliverables submission for finalist selection
-
-## 🏆 Phase 2 Goal - In-Person Finale
-**August 1-3, 2024 at AFLEX Campus**
-- 3-day intensive development with mentors
-- Product refinement and perfection
-- Final pitch and judging
-- Networking with industry experts
 
 ## 🧪 Testing & Demo Setup
 
