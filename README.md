@@ -386,9 +386,3 @@ docker run -p 3000:3000 --env-file .env edufayda
 - Use secure, randomly generated secrets for all key values
 - Ensure database URL points to your production database
 
-#### Recommended Hosting Platforms
-- **Vercel**: Optimized for Next.js applications with automatic deployments
-- **Railway**: Full-stack deployment with integrated database hosting
-- **DigitalOcean App Platform**: Docker-native deployment with scaling capabilities 
-=======
->>>>>>> fee26fce113b0790d83eb8cb5d054f406e4f7112
